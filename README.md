@@ -4,14 +4,30 @@
 
 The architecture for this network is shown below.
 
-<img src="images/network_diagram.png" width=40%>
+<img src="images/RNN_network_diagram.png" width=40%>
 
->**First, we'll pass in words to an embedding layer.** We need an embedding layer because we have tens of thousands of words, so we'll need a more efficient representation for our input data than one-hot encoded vectors. You should have seen this before from the Word2Vec lesson. You can actually train an embedding with the Skip-gram Word2Vec model and use those embeddings as input, here. However, it's good enough to just have an embedding layer and let the network learn a different embedding table on its own. *In this case, the embedding layer is for dimensionality reduction, rather than for learning semantic representations.*
+**First, we'll pass in words to an embedding layer.** We need an embedding layer because we have tens of thousands of words, so we'll need a more efficient representation for our input data than one-hot encoded vectors. You can actually train an embedding with the Skip-gram Word2Vec model(explained below) and use those embeddings as input, here. However, it's good enough to just have an embedding layer and let the network learn a different embedding table on its own. *In this case, the embedding layer is for dimensionality reduction, rather than for learning semantic representations.*
 
->**After input words are passed to an embedding layer, the new embeddings will be passed to LSTM cells.** The LSTM cells will add *recurrent* connections to the network and give us the ability to include information about the *sequence* of words in the movie review data. 
+**After input words are passed to an embedding layer, the new embeddings will be passed to LSTM cells.** The LSTM cells will add *recurrent* connections to the network and give us the ability to include information about the *sequence* of words.
 
->**Finally, the LSTM outputs will go to a sigmoid output layer.** We're using a sigmoid function because positive and negative = 1 and 0, respectively, and a sigmoid will output predicted, sentiment values between 0-1. 
+**Finally, the LSTM outputs will go to a sigmoid output layer.** 
 
+**Data pre-processing**
+* We'll want to get rid of periods and extraneous punctuation.
+* Convert it into int2word & word2int vectors.
+* Remove extra noise - like those words which come less than 5 number of times. 
+* Add padding/truncating (if necessary) - example in sentiment analysis to make all review of same length.
+* Create training, validation, and test data.
+
+After creating training, test, and validation data, we can create DataLoaders for this data by following two steps:
+1. Create a known format for accessing our data, using [TensorDataset](https://pytorch.org/docs/stable/data.html#) which takes in an input set of data and a target set of data with the same first dimension, and creates a dataset.
+2. Create DataLoaders and batch our training, validation, and test Tensor datasets.
+```
+train_data = TensorDataset(torch.from_numpy(train_x), torch.from_numpy(train_y))
+train_loader = DataLoader(train_data, batch_size=batch_size)
+```
+This is an alternative to creating a generator function for batching our data into full batches.
+* Finally feed the data to the model. 
 
 ## Optional : Word2Vec Model 
 
