@@ -1,5 +1,27 @@
 # Generating-TV-scripts
 
+## Small abstract of generated script
+It does not make much sense now. :D :D
+```
+elaine: hello.
+
+jerry: i cant had polite, you dont have to tell it, i dont know. i dialed cantaloupe cantaloupe.
+
+jerry: no- huh.(to jerry) yeah, no bad is that?
+
+jerry: i told you knew......
+
+kramer: i dont know.
+
+jerry: i told you.
+
+jerry: no.
+
+kramer:(to kramer) yeah, i had to get cantaloupe with this is the middle and i know.
+
+jerry: no, i dont recall cantaloupe. i know, and you was cantaloupe?
+```
+
 ## Network Architecture
 
 The architecture for this network is shown below.
